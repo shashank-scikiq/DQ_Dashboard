@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Data Quality Report">
+    <meta name="author" content="ONDC">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <title>Data Quality Report</title>
+
+    <!-- vendor css -->
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="lib/select2/css/select2.min.css">
+    <link rel="stylesheet" href="lib/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-float-label.min.css">
+    <link rel="stylesheet" href="lib/mdi/css/materialdesignicons.min.css">
+
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.dashboard.css">
+  </head>
+  <style>
+    .select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border-color: #c0ccda;
+    border-radius: 0.25rem;
+    height: 35px;
+    outline: none;
+}
+#missingValue .radialchartcard:first-child {
+  margin: 0px 10px 0px 0px;
+}
+#missingValue .radialchartcard {
+  margin: 0px 10px 0px 0px;
+}
+#missingValue .radialchartcard:last-child {
+  margin: 0px;
+}
+  </style>
+  <body class="page-profile">
+
+    <header class="navbar navbar-header navbar-header-fixed">
+      <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+      <div class="navbar-brand">
+        <a href="/" class="df-logo"><img src="assets/img/ondc_logo.svg" class="w-auto" alt=""></a>
+      </div><!-- navbar-brand -->
+      <div id="navbarMenu" class="navbar-menu-wrapper">
+        <div class="navbar-menu-header">
+          <a href="/" class="df-logo"><img src="assets/img/ondc_logo.svg" class="w-auto" alt=""></a>
+          <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+        </div><!-- navbar-menu-header -->
+      </div><!-- navbar-menu-wrapper -->
+    </header><!-- navbar -->
+
+    <div class="content content-fixed">
+      <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+          <div>
+            <h4 class="mg-b-0 tx-spacing--1">Welcome to OD Data Quality Report</h4>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Item Category</li>
+                <li class="breadcrumb-item active" aria-current="page">2024-04-28</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="d-flex">
+          <div class="has-float-label tx-12-f">
+          <label for="filterDaterange" class="d-block">Date Range</label>
+          
+            <div id="filterDaterange" class="form-control w-100 pos-relative d-flex align-items-center justify-content-between tx-12-f">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-calendar-month-outline tx-18 tx-primary mg-r-5"></i>
+                <span></span> 
+              </div>
+              <i class="mdi mdi-chevron-down"></i>
+            </div>
+            <!-- <div id="filterDaterange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div> -->
+          </div>
+
+            <div class="has-float-label mg-l-10">
+              <label for="columnName" class="d-block">Column Name</label>
+              <select class="custom-select custom-select-sm" id="columnName">
+                <option selected>Column Name</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="has-float-label mg-l-10">
+              <label for="sellerNps" class="d-block">Seller NP</label>
+              <select class="custom-select custom-select-sm" id="sellerNps">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-xs">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card card-body">
+              <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Conversion Rate</h6>
+              <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">0.81%</h3>
+                <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">1.2% <i class="icon ion-md-arrow-up"></i></span> than last week</p>
+              </div>
+              <div class="chart-three">
+                  <div id="flotChart3" class="flot-chart ht-30"></div>
+                </div><!-- chart-three -->
+            </div>
+          </div><!-- col -->
+          <div class="col-sm-6 col-lg-3 mg-t-10 mg-sm-t-0">
+            <div class="card card-body">
+              <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Unique Purchases</h6>
+              <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">3,137</h3>
+                <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">0.7% <i class="icon ion-md-arrow-down"></i></span> than last week</p>
+              </div>
+              <div class="chart-three">
+                  <div id="flotChart4" class="flot-chart ht-30"></div>
+                </div><!-- chart-three -->
+            </div>
+          </div><!-- col -->
+          <div class="col-sm-6 col-lg-3 mg-t-10 mg-lg-t-0">
+            <div class="card card-body">
+              <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Avg. Order Value</h6>
+              <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">$306.20</h3>
+                <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">0.3% <i class="icon ion-md-arrow-down"></i></span> than last week</p>
+              </div>
+              <div class="chart-three">
+                  <div id="flotChart5" class="flot-chart ht-30"></div>
+                </div><!-- chart-three -->
+            </div>
+          </div><!-- col -->
+          <div class="col-sm-6 col-lg-3 mg-t-10 mg-lg-t-0">
+            <div class="card card-body">
+              <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Order Quantity</h6>
+              <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">1,650</h3>
+                <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">2.1% <i class="icon ion-md-arrow-up"></i></span> than last week</p>
+              </div>
+              <div class="chart-three">
+                  <div id="flotChart6" class="flot-chart ht-30"></div>
+                </div><!-- chart-three -->
+            </div>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-xl-12 mg-t-10" >
+            <div id="missingValue" class="d-flex justify-content-between"></div>
+          </div>
+
+          <div class="col-lg-8 col-xl-8 mg-t-10">
+            <div class="card mg-b-10 ht-100p">
+              <div class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
+                <div>
+                  <h6 class="mg-b-5">Detail Completed</h6>
+                  <p class="tx-13 tx-color-03 mg-b-0">Sellers with Highest Missing Provider ID.</p>
+                </div>
+              </div><!-- card-header -->
+              <div class="card-body">
+                <div class="d-sm-flex">
+                  <div class="media">
+                    <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-teal tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-6">
+                      <i class="mdi mdi-table-check tx-30"></i>
+                    </div>
+                    <div class="media-body">
+                      <h6 class="tx-sans tx-10 text-truncate tx-color-03 tx-nowrap mg-b-5 mg-md-b-8">ondc-otipy.crofarm.com</h6>
+                      <h4 class="tx-20 tx-sm-18 tx-normal tx-rubik mg-b-0 tx-nowrap">3.45% <small class="mg-b-0 tx-11 tx-success mg-l-3 tx-nowrap"><i class="icon ion-md-arrow-up"></i> 5% Threshold</small></h4>
+                    </div>
+                  </div>
+                  <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                    <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-pink tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-5">
+                      <i class="mdi mdi-table-check tx-30"></i>
+                    </div>
+                    <div class="media-body">
+                      <h6 class="tx-sans tx-10 text-truncate tx-color-03 mg-b-5 mg-md-b-8">webapi.magicpin.in/oms_partner/on</h6>
+                      <h4 class="tx-20 tx-sm-18 tx-normal tx-rubik mg-b-0 tx-nowrap">0.69% <small class="mg-b-0 tx-11 tx-success mg-l-3 tx-nowrap"><i class="icon ion-md-arrow-up"></i> 5% Threshold</small></h4>
+                    </div>
+                  </div>
+                  <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                    <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-primary tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-4">
+                      <i class="mdi mdi-table-check tx-30"></i>
+                    </div>
+                    <div class="media-body">
+                      <h6 class="tx-sans tx-10 text-truncate tx-color-03 mg-b-5 mg-md-b-8">agrimart.api.agrevolution.in</h6>
+                      <h4 class="tx-20 tx-sm-18 tx-normal tx-rubik mg-b-0 tx-nowrap">100.0% <small class="mg-b-0 tx-11 tx-success mg-l-3 tx-nowrap"><i class="icon ion-md-arrow-up"></i> 5% Threshold</small></h4>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- card-body -->
+              <div class="table-responsive">
+                <table class="table table-dashboard mg-b-0">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="">seller_np</th>
+                      <th class="text-right">null_itm_cat</th>
+                      <th class="text-right">total_orders</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="tx-color-03 tx-normal">0</td>
+                      <td class="tx-medium">ondc-otipy.crofarm.com</td>
+                      <td class="text-right tx-teal">+ $32,580.00</td>
+                      <td class="text-right tx-pink">- $3,023.10</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-color-03 tx-normal">1</td>
+                      <td class="tx-medium">webapi.magicpin.in/oms_partner/ondc</td>
+                      <td class="text-right tx-teal">+ $30,065.10</td>
+                      <td class="text-right tx-pink">- $2,780.00</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-color-03 tx-normal">2</td>
+                      <td class="tx-medium">api-ondc.dlyb.in	</td>
+                      <td class="text-right tx-teal">+ $30,065.10</td>
+                      <td class="text-right tx-pink">- $2,780.00</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-color-03 tx-normal">3</td>
+                      <td class="tx-medium">api.eksecond.in	</td>
+                      <td class="text-right tx-teal">+ $30,065.10</td>
+                      <td class="text-right tx-pink">- $2,780.00</td>
+                    </tr>
+                    <tr>
+                      <td class="tx-color-03 tx-normal">4</td>
+                      <td class="tx-medium">ondc.snapdeal.com	</td>
+                      <td class="text-right tx-teal">+ $30,065.10</td>
+                      <td class="text-right tx-pink">- $2,780.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div><!-- table-responsive -->
+            </div><!-- card -->
+
+          </div><!-- col -->
+          <div class="col-md-6 col-xl-4 mg-t-10">
+            <div class="card ht-100p">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h6 class="mg-b-0">Trends</h6>
+              </div>
+              <div class="card-body pd-0">
+                <div id="timeline-chart"></div>
+              </div>
+            </div><!-- card -->
+          </div>
+
+
+          <div class="col-lg-8 col-xl-8 mg-t-10">
+            <div class="card ht-100p">
+              <div class="card-header bd-b-0-f d-md-flex align-items-center justify-content-between">
+                <div>
+                  <h6 class="mg-b-5">Detail Cancelled</h6>
+                  <p class="tx-13 tx-color-03 mg-b-0">Sellers with Highest Missing Item Category</p>
+                </div>
+              </div><!-- card-header -->
+              <div class="card-body pos-relative pd-0">
+                <div class="d-sm-flex pd-b-20 pd-x-20">
+                <div class="media">
+                  <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-teal tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  </div>
+                  <div class="media-body">
+                    <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Cancellation Code</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">1.03 </h4>
+                      <div class="wd-10 ht-10 rounded-circle bg-pink mg-l-10"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="media mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+                  <div class="wd-40 wd-md-50 ht-40 ht-md-50 bg-pink tx-white mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded op-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  </div>
+                  <div class="media-body">
+                    <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Cancellation Date</h6>
+                    <div class="d-flex align-items-baseline">
+                      <h4 class="tx-20 tx-sm-18 tx-md-24 tx-normal tx-rubik mg-b-0">0.0 </h4>
+                      <!-- <div class="wd-10 ht-10 rounded-circle bg-pink mg-l-10"></div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="">
+                <div class="table-responsive-">
+                  <table class="table table table-dashboard table-dashboard-one">
+                    <thead>
+                      <tr>
+                        <th class="wd-40">#</th>
+                        <th class="wd-40">ord_date</th>
+                        <th class="wd-25 text-right">seller_np</th>
+                        <th class="wd-35 text-right">Cancellation_code</th>
+                        <th class="wd-35 text-right">Cancelled_Dates</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="tx-medium">0</td>
+                        <td class="text-right">2024-04-28</td>
+                        <td class="text-right">agg.dominos.co.in</td>
+                        <td class="text-right">19</td>
+                        <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-medium">1</td>
+                        <td class="text-right">2024-04-28</td>
+                        <td class="text-right">agg.dominos.co.in</td>
+                        <td class="text-right">19</td>
+                        <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-medium">2</td>
+                        <td class="text-right">2024-04-28</td>
+                        <td class="text-right">agg.dominos.co.in</td>
+                        <td class="text-right">19</td>
+                        <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-medium">3</td>
+                        <td class="text-right">2024-04-28</td>
+                        <td class="text-right">agg.dominos.co.in</td>
+                        <td class="text-right">19</td>
+                        <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                        <td class="tx-medium">4</td>
+                        <td class="text-right">2024-04-28</td>
+                        <td class="text-right">agg.dominos.co.in</td>
+                        <td class="text-right">19</td>
+                        <td class="text-right">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+
+                </div><!-- chart-one -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div>
+          <div class="col-md-6 col-xl-4 mg-t-10">
+            <div class="card ht-100p">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h6 class="mg-b-0">Trends</h6>
+              </div>
+              <div class="card-body pd-0">
+                <div>
+                  <div id="timeline-chart2"></div>
+                </div>
+              </div>
+            </div><!-- card -->
+          </div>
+
+
+
+
+        </div><!-- row -->
+      </div><!-- container -->
+    </div><!-- content -->
+
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/daterangepicker/daterangepicker.min.js"></script>
+    <script src="lib/select2/js/select2.full.min.js"></script>
+    <script src="lib/apexcharts/apexcharts.js"></script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <!-- append theme customizer -->
+    <script src="lib/js-cookie/js.cookie.js"></script>
+
+    <script>
+      
+
+    </script>
+
+  </body>
+</html>
